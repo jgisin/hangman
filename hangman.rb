@@ -6,13 +6,16 @@ word_length = ['_', '_', '_', '_', '_', '_', '_', '_', '_', '_']
 arr = []
 contents = ""
 counter = 0
+message = "Your current count is #{counter}"
 
 #root/index route and control
 get '/' do
+
 	#Reset variables on index reload for new game
 	counter = 0
 	contents = ""
 	word_length = ['_', '_', '_', '_', '_', '_', '_', '_', '_', '_']
+	message = "Your current count is #{counter}"
 
 	#Passes the difficulty param into the redirect for use in game.erb
 	query = params.map{|key, value| "#{key}=#{value}"}.join("&")
@@ -53,25 +56,25 @@ get '/game' do
 						word_length[index] = params["guess"]
 					end
 				end
+				if word_length.join("") == contents
+					message = "You win!"
+				end
+
+			#Defines losing conditions		
 			else
 				if counter < 5
 					counter += 1
+					message = "Your current count is #{counter}"
 				else
-					counter = "You Lose"
+					message = "You Lose, the word was #{contents}"
 				end
 			end
 
 	end
 	
 	
-	#Iterates through the arr, this is temporary only
-		#if params["guess"] != nil && counter < word_length.length
-			#word_length[counter] = params["guess"]
-			#counter += 1
-		#end
-
 	erb :game, :locals => {:word_length => word_length,
-		:contents => contents, :counter => counter}
+		:contents => contents, :counter => counter, :message => message}
 
 end
 
