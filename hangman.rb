@@ -5,36 +5,18 @@ word_length = ['_', '_', '_', '_', '_', '_', '_', '_', '_', '_']
 arr = []
 random_num = rand(arr.length)
 contents = ""
-
+counter = 0
 
 get '/' do
+	counter = 0
+	contents = ""
+	query = params.map{|key, value| "#{key}=#{value}"}.join("&")
 		if params["difficulty"] != nil
-			redirect('game')
-			set erb :game
+			redirect("game?#{query}")
 		end
-		difficulty = nil
-		if params["difficulty"] != nil
-			difficulty = params["difficulty"].to_i
-		end
-
-	dictionary = File.open("enable.txt", "r")
-	
-		while !dictionary.eof?
-			line = dictionary.readline
-				if line.length - 1 == difficulty
-					arr << line
-				end
-		end
-		contents = arr.join.split("\n")[rand(arr.length)].to_s
-			if params["difficulty"] != nil
-				word_length = word_length.take(contents.length)
-			end
-		dictionary.close
-
+		query = params.map{|key, value| "#{key}=#{value}"}.join("&")
 		
-		#if params["guess"] != nil
-			#word_length[0] = params["guess"]
-		#end
+
 
 	erb :index, :locals => {:word_length => word_length,
 	:contents => contents}
@@ -42,8 +24,29 @@ get '/' do
 end
 
 get '/game' do
-	erb :game, :locals => {:word_length => word_length,
-	:contents => contents}
+
+	if contents == ""
+			dictionary = File.open("enable.txt", "r")
+		
+			while !dictionary.eof?
+				line = dictionary.readline
+					if line.length - 1 == params["difficulty"].to_i
+						arr << line
+					end
+			end
+			contents = arr.join.split("\n")[rand(arr.length)].to_s
+				if contents != ""
+					word_length = word_length.take(contents.length)
+				end
+			dictionary.close
+	end
+		if params["guess"] != nil && counter < word_length.length
+			word_length[counter] = params["guess"]
+			counter += 1
+		end
+		erb :game, :locals => {:word_length => word_length,
+		:contents => contents}
+
 end
 
 
