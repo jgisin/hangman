@@ -45,7 +45,7 @@ get '/game' do
 		split_word = contents.split(//)
 			if split_word.include?(params["guess"])
 				split_word.each_with_index do |value, index|
-					if split_word[index] = params["guess"]
+					if split_word[index] == params["guess"]
 						word_length[index] = params["guess"]
 					end
 				end
