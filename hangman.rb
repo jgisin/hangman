@@ -1,11 +1,12 @@
 require 'sinatra'
-#require 'sinatra/reloader'
+require 'sinatra/reloader'
 
 word_length = ['_', '_', '_', '_', '_', '_', '_', '_', '_', '_']
 arr = []
 random_num = rand(arr.length)
 contents = ""
 counter = 0
+
 
 get '/' do
 	counter = 0
@@ -14,7 +15,8 @@ get '/' do
 		if params["difficulty"] != nil
 			redirect("game?#{query}")
 		end
-		query = params.map{|key, value| "#{key}=#{value}"}.join("&")
+		#Passes the difficulty params into the redirect
+		#query = params.map{|key, value| "#{key}=#{value}"}.join("&")
 		
 
 
@@ -24,7 +26,7 @@ get '/' do
 end
 
 get '/game' do
-
+	#Pick the word from the dictionary
 	if contents == ""
 			dictionary = File.open("enable.txt", "r")
 		
@@ -37,13 +39,26 @@ get '/game' do
 			contents = arr.join.split("\n")[rand(arr.length)].to_s
 				if contents != ""
 					word_length = word_length.take(contents.length)
+					dictionary.close
 				end
-			dictionary.close
+	else
+		split_word = contents.split(//)
+			if split_word.include?(params["guess"])
+				split_word.each_with_index do |value, index|
+					if split_word[index] = params["guess"]
+						word_length[index] = params["guess"]
+					end
+				end
+			end
+
 	end
-		if params["guess"] != nil && counter < word_length.length
-			word_length[counter] = params["guess"]
-			counter += 1
-		end
+	
+	
+	#Iterates through the arr, this is temporary only
+		#if params["guess"] != nil && counter < word_length.length
+			#word_length[counter] = params["guess"]
+			#counter += 1
+		#end
 
 	erb :game, :locals => {:word_length => word_length,
 		:contents => contents}
