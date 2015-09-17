@@ -1,5 +1,5 @@
 require 'sinatra'
-require 'sinatra/reloader'
+#require 'sinatra/reloader'
 
 word_length = ['_', '_', '_', '_', '_', '_', '_', '_', '_', '_']
 arr = []
@@ -44,7 +44,8 @@ get '/game' do
 			word_length[counter] = params["guess"]
 			counter += 1
 		end
-		erb :game, :locals => {:word_length => word_length,
+
+	erb :game, :locals => {:word_length => word_length,
 		:contents => contents}
 
 end
