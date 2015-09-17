@@ -1,5 +1,5 @@
 require 'sinatra'
-require 'sinatra/reloader'
+#require 'sinatra/reloader'
 
 word_length = ['_', '_', '_', '_', '_', '_', '_', '_', '_', '_']
 arr = []
