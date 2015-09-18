@@ -13,10 +13,10 @@ guessed = []
 get '/' do
 
 		#Reset variables on index reload for new game
-	arr = []
-	counter = 0
-	contents = ""
 	word_length = ['_', '_', '_', '_', '_', '_', '_', '_', '_', '_']
+	arr = []
+	contents = ""
+	counter = 0
 	message = "Wrong guesses: #{counter}"
 	guessed = []
 
@@ -36,10 +36,9 @@ end
 #Game.erb route and control
 get '/game' do
 	#Pick the word from the dictionary based on difficulty
-	
 	if contents == ""
 			dictionary = File.open("enable.txt", "r")
-		
+		#Reads each line and filters words to difficulty length
 			while !dictionary.eof?
 				line = dictionary.readline
 					if line.length - 1 == params["difficulty"].to_i
