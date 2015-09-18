@@ -35,10 +35,10 @@ end
 
 #Game.erb route and control
 get '/game' do
-	#Pick the word from the dictionary based on difficulty
+	#If statement for first load of game.erb before contents assigned
 	if contents == ""
 			dictionary = File.open("enable.txt", "r")
-		#Reads each line and filters words to difficulty length
+		#Reads each line and filters words by length to match difficulty
 			while !dictionary.eof?
 				line = dictionary.readline
 					if line.length - 1 == params["difficulty"].to_i
@@ -52,6 +52,7 @@ get '/game' do
 					word_length = word_length.take(contents.length)
 					dictionary.close
 				end
+	#After contents assigned and word_length set runs else statement
 	else
 	#If guess is correct, displays guess in word_length array
 		split_word = contents.split(//)
@@ -74,6 +75,7 @@ get '/game' do
 					counter += 1
 					message = "Wrong guesses: #{counter}"
 				else
+					counter += 1
 					message = "You Lose, the word was #{contents}"
 				end
 			end
