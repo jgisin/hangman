@@ -1,5 +1,5 @@
 require 'sinatra'
-require 'sinatra/reloader'
+#require 'sinatra/reloader'
 
 #Initialize Variables
 word_length = ['_', '_', '_', '_', '_', '_', '_', '_', '_', '_']
