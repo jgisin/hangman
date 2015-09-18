@@ -12,6 +12,9 @@ p {
 	padding: 20px;
 	text-align: center;
 }
+p a{
+	text-transform: uppercase;
+}
 
 #word{
 	font-family: "Arial";

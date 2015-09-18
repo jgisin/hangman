@@ -12,13 +12,14 @@ guessed = []
 #root/index route and control
 get '/' do
 
-	#Reset variables on index reload for new game
+		#Reset variables on index reload for new game
+	arr = []
 	counter = 0
 	contents = ""
 	word_length = ['_', '_', '_', '_', '_', '_', '_', '_', '_', '_']
 	message = "Wrong guesses: #{counter}"
 	guessed = []
-	
+
 	#Passes the difficulty param into the redirect for use in game.erb
 	query = params.map{|key, value| "#{key}=#{value}"}.join("&")
 		if params["difficulty"] != nil
@@ -29,6 +30,7 @@ get '/' do
 	:contents => contents}
 
 end
+
 
 
 #Game.erb route and control
