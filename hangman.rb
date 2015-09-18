@@ -65,6 +65,7 @@ get '/game' do
 				
 				#Defines win condition
 				if word_length.join("") == contents
+					counter = 7
 					message = "You win!"
 				end
 
