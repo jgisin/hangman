@@ -1,5 +1,5 @@
 require 'sinatra'
-#require 'sinatra/reloader'
+require 'sinatra/reloader'
 
 #Initialize Variables
 word_length = ['_', '_', '_', '_', '_', '_', '_', '_', '_', '_']
@@ -7,6 +7,7 @@ arr = []
 contents = ""
 counter = 0
 message = "Your current count is #{counter}"
+guessed = []
 
 #root/index route and control
 get '/' do
@@ -16,7 +17,8 @@ get '/' do
 	contents = ""
 	word_length = ['_', '_', '_', '_', '_', '_', '_', '_', '_', '_']
 	message = "Your current count is #{counter}"
-
+	#params["difficulty"] = 0
+	
 	#Passes the difficulty param into the redirect for use in game.erb
 	query = params.map{|key, value| "#{key}=#{value}"}.join("&")
 		if params["difficulty"] != nil
@@ -28,9 +30,17 @@ get '/' do
 
 end
 
+#post '/' do
+	#query = params.map{|key, value| "#{key}=#{value}"}.join("&")
+		#if params["difficulty"] > 1
+			#redirect("game?#{query}")
+		#end
+#end
+
 #Game.erb route and control
 get '/game' do
 	#Pick the word from the dictionary based on difficulty
+	
 	if contents == ""
 			dictionary = File.open("enable.txt", "r")
 		
@@ -56,12 +66,15 @@ get '/game' do
 						word_length[index] = params["guess"]
 					end
 				end
+				
+				#Defines win condition
 				if word_length.join("") == contents
 					message = "You win!"
 				end
 
-			#Defines losing conditions		
+			#Defines losing condition		
 			else
+				guessed << params["guess"]
 				if counter < 5
 					counter += 1
 					message = "Your current count is #{counter}"
@@ -74,7 +87,8 @@ get '/game' do
 	
 	
 	erb :game, :locals => {:word_length => word_length,
-		:contents => contents, :counter => counter, :message => message}
+		:contents => contents, :counter => counter, :message => message,
+	:guessed => guessed}
 
 end
 
