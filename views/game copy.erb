@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Hangman</title>
+	</head>
+		<body>
+			<div style='margin-top: 18px;'>
+				<h1 style='color: #47544d; line-height: 21px;font-size: 	60px; font-family: arial;'>HANGMAN</h1>
+			</div>
+			<div style='margin-left: 5%'>
+	<form>
+		<input type='text' name='guess' style='color: #47544d; line-height: 21px;font-size: 	20px; font-family: arial;' />
+		<input type='submit' value='Guess' style='color: #47544d; line-height: 21px;font-size: 	20px; font-family: arial;' />
+	</form>
+	<p style='color: #2d2e2e; line-height: 21px;font-size: 	20px; font-family: arial;'>
+</br>
+<%= word_length.join(" ") %>
+</br></br>
+<!-- <%= contents %> -->
+</br>
+<%= message %>
+</br></br>
+Letters you have guessed:<b><em> <%= guessed.join(" ") %></em></b> </br></br>
+
+<a href="/">Play a new game</a>
+		</p>
+	</div>
+	<img src="viking<%= counter %>.jpg" style="width:304px;height:228px;">
+		</body>
+</html> 

@@ -6,7 +6,7 @@ word_length = ['_', '_', '_', '_', '_', '_', '_', '_', '_', '_']
 arr = []
 contents = ""
 counter = 0
-message = "Your current count is #{counter}"
+message = "Wrong guesses: #{counter}"
 guessed = []
 
 #root/index route and control
@@ -16,8 +16,8 @@ get '/' do
 	counter = 0
 	contents = ""
 	word_length = ['_', '_', '_', '_', '_', '_', '_', '_', '_', '_']
-	message = "Your current count is #{counter}"
-	#params["difficulty"] = 0
+	message = "Wrong guesses: #{counter}"
+	guessed = []
 	
 	#Passes the difficulty param into the redirect for use in game.erb
 	query = params.map{|key, value| "#{key}=#{value}"}.join("&")
@@ -30,12 +30,6 @@ get '/' do
 
 end
 
-#post '/' do
-	#query = params.map{|key, value| "#{key}=#{value}"}.join("&")
-		#if params["difficulty"] > 1
-			#redirect("game?#{query}")
-		#end
-#end
 
 #Game.erb route and control
 get '/game' do
@@ -58,7 +52,7 @@ get '/game' do
 					dictionary.close
 				end
 	else
-	#Assigns guess param to target location in word_length array
+	#If guess is correct, displays guess in word_length array
 		split_word = contents.split(//)
 			if split_word.include?(params["guess"])
 				split_word.each_with_index do |value, index|
@@ -72,12 +66,12 @@ get '/game' do
 					message = "You win!"
 				end
 
-			#Defines losing condition		
+			#Defines losing condition and maintains counter		
 			else
 				guessed << params["guess"]
 				if counter < 5
 					counter += 1
-					message = "Your current count is #{counter}"
+					message = "Wrong guesses: #{counter}"
 				else
 					message = "You Lose, the word was #{contents}"
 				end

@@ -1,0 +1,52 @@
+header {
+	font-size: 80px;
+	font-family: "Arial";
+	color: #47544d;
+	text-align: center;
+}
+
+p {
+	font-family: "Arial";
+	color: #2d2e2e;
+	font-size: 20px;
+	padding: 20px;
+	text-align: center;
+}
+
+#word{
+	font-family: "Arial";
+	color: #2d2e2e;
+	font-size: 30px;
+	padding: 20px;
+	text-align: center;
+	margin-right: 15px;
+}
+
+input[type=text]{
+
+	font-family: "Arial";
+	color: #2d2e2e;
+	font-size: 20px;
+	width: 200px;
+}
+input[type=submit]{
+
+	font-family: "Arial";
+	color: #2d2e2e;
+	font-size: 20px;
+	width: 100px;
+}
+
+#picture{
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	height: 400px;
+	width: 350px;
+}
+form {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+}
