@@ -56,10 +56,10 @@ get '/game' do
 	else
 	#If guess is correct, displays guess in word_length array
 		split_word = contents.split(//)
-			if split_word.include?(params["guess"])
+			if split_word.include?(params["guess"].downcase)
 				split_word.each_with_index do |value, index|
-					if split_word[index] == params["guess"]
-						word_length[index] = params["guess"]
+					if split_word[index] == params["guess"].downcase
+						word_length[index] = params["guess"].downcase
 					end
 				end
 				
@@ -71,17 +71,19 @@ get '/game' do
 
 			#Defines losing condition and maintains counter		
 			else
-				guessed << params["guess"]
-				if counter < 5
-					counter += 1
-					message = "Wrong guesses: #{counter}"
-				else
-					counter += 1
-					message = "You Lose, the word was #{contents}"
+				guessed << params["guess"].downcase
+				if counter < 6
+					if counter < 5
+						counter += 1
+						message = "Wrong guesses: #{counter}"
+					else
+						counter += 1
+						message = "You Lose, the word was #{contents}"
+					end
 				end
 			end
-
 	end
+	
 	
 	
 	erb :game, :locals => {:word_length => word_length,
